@@ -12,5 +12,5 @@
     <color name="surface_dark">#1A1A2E</color>
     <color name="player_bg_start">#16213E</color>
     <color name="player_bg_end">#0F3460</color>
-    <color name="glass_overlay_tint">#661A1A2E</color>
+    <color name="glass_overlay_tint">#331A1A2E</color>
 </resources>

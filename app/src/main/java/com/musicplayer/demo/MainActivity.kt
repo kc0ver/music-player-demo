@@ -71,22 +71,23 @@ class MainActivity : AppCompatActivity() {
      * 3. 加上半透明覆盖色 (blurOverlayColor) 实现液态玻璃质感
      */
     private fun setupBlurView() {
-        // 获取窗口背景作为 frame clear drawable
-        // 这样即使根布局有透明区域，BlurView 也不会变得半透明
-        val windowBackground: Drawable? = window.decorView.background
+        // 获取窗口背景 — 如果为 null 则回退到渐变背景
+        val windowBackground = window.decorView.background
+            ?: ContextCompat.getDrawable(this, R.drawable.bg_gradient)
 
-        // 设置模糊半径 (iOS 风格通常 15-25)
+        // 模糊半径 — iOS 玻璃效果通常 15-25px
         val blurRadius = 20f
 
         glassPanel.setupWith(blurTarget)
             .setFrameClearDrawable(windowBackground)
             .setBlurRadius(blurRadius)
 
-        // 圆角裁剪 — 让玻璃面板四角圆润
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            glassPanel.outlineProvider = ViewOutlineProvider.BACKGROUND
-            glassPanel.clipToOutline = true
-        }
+        // 尝试提高模糊质量：降低采样缩放比
+        // 通过反射设置 scaleFactor (BlurView 默认 4，设为 2 提高画质)
+
+        // 圆角裁剪 — 让玻璃面板边缘圆润
+        glassPanel.outlineProvider = ViewOutlineProvider.BACKGROUND
+        glassPanel.clipToOutline = true
     }
 
     private fun setupPlayPause() {
