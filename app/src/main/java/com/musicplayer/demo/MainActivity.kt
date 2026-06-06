@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.palette.graphics.Palette
+import eightbitlab.com.blurview.BlurTarget
 import eightbitlab.com.blurview.BlurView
 import com.google.android.material.slider.Slider
 
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     private var isPlaying = false
     private var isLiked = false
-    private lateinit var blurTarget: View
+    private lateinit var blurTarget: BlurTarget
     private lateinit var glassPanel: BlurView
     private var albumArtContainer: CardView? = null
     private var playPauseBtn: ImageButton? = null
@@ -55,7 +56,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        blurTarget = findViewById(R.id.blurTarget)
+        blurTarget = findViewById<BlurTarget>(R.id.blurTarget)
         glassPanel = findViewById(R.id.glassPanel)
         albumArtContainer = findViewById(R.id.albumArtContainer)
         playPauseBtn = findViewById(R.id.btnPlayPause)
