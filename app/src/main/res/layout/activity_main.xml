@@ -1,93 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient"
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
-    <!-- Album Art Area -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/albumArtContainer"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="32dp"
-        app:cardCornerRadius="24dp"
-        app:cardElevation="16dp"
-        app:layout_constraintBottom_toTopOf="@id/playerControls"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed">
+    <!--
+        BlurTarget wraps all the content we want to blur behind the glass panels.
+        BlurView (below) captures a snapshot of this target and applies real Gaussian blur.
+    -->
+    <eightbitlab.com.blurview.BlurTarget
+        android:id="@+id/blurTarget"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <!-- Animated Gradient Background -->
         <ImageView
-            android:id="@+id/albumArt"
+            android:id="@+id/backgroundArt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/album_art_placeholder"
             android:scaleType="centerCrop"
-            android:contentDescription="Album Art" />
+            android:background="@drawable/bg_gradient" />
 
-        <!-- Glass overlay on album art -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/glass_overlay" />
+        <!-- Album Art Card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/albumArtContainer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="32dp"
+            android:transitionName="albumArt"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="16dp"
+            app:layout_constraintBottom_toTopOf="@id/songInfo"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed">
 
-    </androidx.cardview.widget.CardView>
+            <ImageView
+                android:id="@+id/albumArt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:importantForAccessibility="no"
+                android:background="@drawable/album_art_placeholder"
+                android:scaleType="centerCrop" />
 
-    <!-- Song Info -->
-    <LinearLayout
-        android:id="@+id/songInfo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/albumArtContainer">
+        </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/songTitle"
-            android:layout_width="wrap_content"
+        <!-- Song Info -->
+        <LinearLayout
+            android:id="@+id/songInfo"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:ellipsize="marquee"
-            android:maxLines="1"
-            android:text="Liquid Dreams"
-            android:textColor="@color/text_primary"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/albumArtContainer">
 
-        <TextView
-            android:id="@+id/songArtist"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/songTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="marquee"
+                android:maxLines="1"
+                android:text="Liquid Dreams"
+                android:textColor="@color/text_primary"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/songArtist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:ellipsize="marquee"
+                android:maxLines="1"
+                android:text="Glass Horizon"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <!-- Progress Bar -->
+        <LinearLayout
+            android:id="@+id/progressSection"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:maxLines="1"
-            android:text="Glass Horizon"
-            android:textColor="@color/text_secondary"
-            android:textSize="14sp" />
+            android:layout_marginHorizontal="32dp"
+            android:layout_marginTop="24dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/songInfo">
 
-    </LinearLayout>
-
-    <!-- Progress Bar -->
-    <LinearLayout
-        android:id="@+id/progressSection"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
-        android:layout_marginTop="24dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/songInfo">
-
-        <com.google.android.material.slider.Slider
+            <com.google.android.material.slider.Slider
             android:id="@+id/progressSlider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -100,104 +114,106 @@
             app:trackColorInactive="@color/glass_border"
             app:trackHeight="3dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/currentTime"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="1:23"
-                android:textColor="@color/text_secondary"
-                android:textSize="12sp" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/totalTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="3:45"
-                android:textColor="@color/text_secondary"
-                android:textSize="12sp" />
+                <TextView
+                    android:id="@+id/currentTime"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="1:23"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/totalTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3:45"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
-
-    <!-- Player Controls -->
-    <LinearLayout
-        android:id="@+id/playerControls"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/glassPanel"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/progressSection">
-
-        <ImageButton
-            android:id="@+id/btnPrevious"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Previous"
-            android:src="@drawable/ic_skip_previous"
-            android:tint="@color/text_primary"
-            app:tint="@color/text_primary" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/playPauseContainer"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
+        <!-- Player Controls -->
+        <LinearLayout
+            android:id="@+id/playerControls"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="32dp"
-            app:cardCornerRadius="36dp"
-            app:cardElevation="12dp"
-            app:cardBackgroundColor="@color/accent_pink">
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/progressSection">
 
             <ImageButton
-                android:id="@+id/btnPlayPause"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:id="@+id/btnPrevious"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Play/Pause"
-                android:padding="20dp"
-                android:src="@drawable/ic_play_arrow"
+                android:contentDescription="Previous"
+                android:src="@drawable/ic_skip_previous"
                 android:tint="@color/text_primary" />
 
-        </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/playPauseContainer"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_marginHorizontal="32dp"
+                app:cardBackgroundColor="@color/accent_pink"
+                app:cardCornerRadius="36dp"
+                app:cardElevation="12dp">
 
-        <ImageButton
-            android:id="@+id/btnNext"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Next"
-            android:src="@drawable/ic_skip_next"
-            android:tint="@color/text_primary" />
+                <ImageButton
+                    android:id="@+id/btnPlayPause"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Play/Pause"
+                    android:padding="20dp"
+                    android:src="@drawable/ic_play_arrow"
+                    android:tint="@color/text_primary" />
 
-    </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
-    <!-- Bottom Glass Panel -->
-    <androidx.cardview.widget.CardView
+            <ImageButton
+                android:id="@+id/btnNext"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Next"
+                android:src="@drawable/ic_skip_next"
+                android:tint="@color/text_primary" />
+
+        </LinearLayout>
+
+    </eightbitlab.com.blurview.BlurTarget>
+
+    <!--
+        Bottom Glass Panel — BlurView with real-time frosted glass effect.
+        It blurs the content from BlurTarget behind this area and applies overlay color.
+    -->
+    <eightbitlab.com.blurview.BlurView
         android:id="@+id/glassPanel"
         android:layout_width="0dp"
-        android:layout_height="80dp"
-        android:layout_margin="16dp"
+        android:layout_height="96dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="24dp"
-        android:background="@drawable/glass_panel_bg"
-        app:cardCornerRadius="24dp"
-        app:cardElevation="8dp"
-        app:cardBackgroundColor="@color/glass_bg_start"
+        app:blurOverlayColor="@color/glass_overlay_tint"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
+        <!-- Rounded corners via outline clipping -->
         <LinearLayout
+            android:id="@+id/glassContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
@@ -213,18 +229,21 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Up Next"
+                    android:text="UP NEXT"
                     android:textColor="@color/text_secondary"
-                    android:textSize="11sp" />
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.1" />
 
                 <TextView
                     android:id="@+id/upNextTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
                     android:maxLines="1"
                     android:text="Glass Horizon — Crystal Waves"
                     android:textColor="@color/text_primary"
-                    android:textSize="14sp" />
+                    android:textSize="15sp" />
 
             </LinearLayout>
 
@@ -239,6 +258,6 @@
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </eightbitlab.com.blurview.BlurView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

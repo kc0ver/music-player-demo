@@ -11,8 +11,8 @@ android {
         applicationId = "com.musicplayer.demo"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -44,4 +44,7 @@ dependencies {
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.palette:palette-ktx:1.0.0")
+
+    // BlurView — iOS-style frosted glass blur for View system
+    implementation("com.github.Dimezis:BlurView:version-3.2.0")
 }
