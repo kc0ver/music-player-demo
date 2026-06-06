@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="glass_bg_start">#33FFFFFF</color>
+    <color name="glass_bg_end">#0DFFFFFF</color>
+    <color name="glass_border">#1AFFFFFF</color>
+    <color name="glass_shadow">#1A000000</color>
+    <color name="accent_pink">#FF4D6D</color>
+    <color name="accent_purple">#7B2D8E</color>
+    <color name="accent_blue">#4A90D9</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#B3FFFFFF</color>
+    <color name="surface_dark">#1A1A2E</color>
+    <color name="player_bg_start">#16213E</color>
+    <color name="player_bg_end">#0F3460</color>
+</resources>
